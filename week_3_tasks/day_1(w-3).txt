@@ -1,0 +1,381 @@
+1) 
+
+#include <iostream> 
+
+#include<vector> 
+
+using namespace std; 
+
+class TaskScheduler{ 
+
+    public: 
+
+    vector<string> mainMenuOptions; 
+
+    vector<string> settingsMenuOptions; 
+
+    vector<string> mediaMenuOptions; 
+
+    vector<string> audioSettingsMenuOptions; 
+
+     
+
+      TaskScheduler() { 
+
+        mainMenuOptions = {"Settings", "Media", "Exit"}; 
+
+        settingsMenuOptions = {"DisplaySetting", "AudioSetting", "Back", "Exit"}; 
+
+        mediaMenuOptions = {"Radio", "BluetoothAudio", "Back", "Exit"}; 
+
+        audioSettingsMenuOptions = {"Sound", "Back", "Exit"}; 
+
+    } 
+
+            void Menu(){ 
+
+                int choice; 
+
+                while (true) { 
+
+            cout << "\nMain Menu:" << endl; 
+
+            displayMenu(mainMenuOptions); 
+
+            cout << "Enter your choice: "; 
+
+            cin >> choice; 
+
+  
+
+            switch (choice) { 
+
+            case 0: 
+
+                SettingsMenu();  
+
+                break; 
+
+            case 1: 
+
+                MediaMenu();  
+
+                break; 
+
+            case 2: 
+
+                cout << "Exiting program..." << endl; 
+
+                return;  
+
+            default: 
+
+                cout << "Invalid choice! Please try again." << endl; 
+
+            } 
+
+        } 
+
+    } 
+
+     
+
+    void displayMenu(const vector<string>& menu) { 
+
+        for (int i = 0; i < menu.size(); ++i) { 
+
+            cout << i << ") " << menu[i] << endl; 
+
+        } 
+
+    } 
+
+              void SettingsMenu(){ 
+
+                int choice; 
+
+                while(true){ 
+
+            cout << "\nSettings Menu:" << endl; 
+
+            displayMenu(settingsMenuOptions); 
+
+            cout << "Enter your choice: "; 
+
+            cin >> choice; 
+
+    
+
+                switch(choice){ 
+
+                    case 0: 
+
+                        DisplaySetting(); 
+
+                    break; 
+
+                     
+
+                    case 1: 
+
+                    AudioSetting(); 
+
+                     
+
+                    break; 
+
+                    case 2: 
+
+                    return; 
+
+                    break; 
+
+                    case 3: 
+
+                    exit(0); 
+
+                    break; 
+
+                     
+
+                    default: 
+
+                cout<<"your enter a wrong number"<<endl; 
+
+                } 
+
+            }  
+
+} 
+
+  
+
+        void MediaMenu(){ 
+
+                int choice; 
+
+                 while (true) { 
+
+                cout << "\nMedia Menu:" << endl; 
+
+            displayMenu(mediaMenuOptions); 
+
+            cout << "Enter your choice: "; 
+
+            cin >> choice; 
+
+    
+
+                switch(choice){ 
+
+                    case 0: 
+
+                        Radio(); 
+
+                    break; 
+
+                     
+
+                    case 1: 
+
+                    BluetoothAudio(); 
+
+                     
+
+                    break; 
+
+                    case 2: 
+
+                    return; 
+
+                    break; 
+
+                    case 3: 
+
+                    exit(0); 
+
+                    break; 
+
+                    default: 
+
+                cout<<"your enter a wrong number"<<endl; 
+
+                } 
+
+            }  
+
+} 
+
+        void DisplaySetting() 
+
+        { 
+
+        cout<<"your in the DisplaySetting"<<endl; 
+
+    } 
+
+        void AudioSetting() 
+
+        { 
+
+        int choice; 
+
+                while(true){ 
+
+            cout << "\nAudio Settings:" << endl; 
+
+            displayMenu(audioSettingsMenuOptions); 
+
+            cout << "Enter your choice: "; 
+
+            cin >> choice; 
+
+  
+
+         
+
+        switch(choice){ 
+
+            case 0: 
+
+            sound(); 
+
+            break; 
+
+             
+
+           case 1: 
+
+            return; 
+
+            break; 
+
+            case 2: 
+
+            exit(0); 
+
+            break; 
+
+             default: 
+
+                cout<<"your enter a wrong number"<<endl; 
+
+        } 
+
+        } 
+
+        }    
+
+         
+
+        void sound(){ 
+
+            cout<<"your in the sound"<<endl; 
+
+            while(true){ 
+
+                 int choice; 
+
+            cout<<"volume at 30 if u want change the volume \n 1)increse the volume\n 2)decrese the volume \n 3) Back\n0) exit"<<endl; 
+
+            cout << "Enter your choice: "; 
+
+            cin>>choice; 
+
+                switch(choice){ 
+
+                    case 1: 
+
+                    increse(); 
+
+                    break; 
+
+                    case 2: 
+
+                    decrese(); 
+
+                    break; 
+
+               case 3: 
+
+                return; 
+
+                 break; 
+
+                 case 0: 
+
+                exit(0); 
+
+                break; 
+
+                 
+
+                default: 
+
+                cout<<"your enter a wrong number"<<endl; 
+
+            } 
+
+        } 
+
+        } 
+
+        void increse(){ 
+
+            int n; 
+
+            cout<<"how much do you want to increase the sound"<<endl; 
+
+            cin>>n; 
+
+            cout << "Volume increased by " << n << ". New volume: " << (30 + n) << endl; 
+
+             
+
+        } 
+
+        void decrese(){ 
+
+            int n; 
+
+            cout<<"how much do you want to decrease the sound"<<endl; 
+
+            cin>>n; 
+
+            cout << "Volume decreased by " << n << ". New volume: " << (30 - n) << endl; 
+
+        } 
+
+          void Radio() 
+
+        { 
+
+        cout<<"your in the Radio"<<endl; 
+
+    } 
+
+        void BluetoothAudio() 
+
+        { 
+
+        cout<<"your in the BluetoothAudio mode"<<endl; 
+
+        }         
+
+}; 
+
+int main() 
+
+{ 
+
+      TaskScheduler t; 
+
+    t.Menu(); 
+
+  
+
+    return 0; 
+
+} 
+
+ 

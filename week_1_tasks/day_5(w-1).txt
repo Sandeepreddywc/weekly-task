@@ -1,0 +1,33 @@
+Write a program to create  a class Complex to represent complex numbers and overload the + operator to add two complex numbers.
+
+
+#include <iostream>
+using namespace std;
+
+class Complex{
+    public :
+    int real;
+    int imag;
+    
+    Complex(int real=0,int imag=0){
+        this->real=real;
+        this->imag=imag;
+    }
+    Complex operator+(Complex &obj){
+        Complex com;
+        com.real=real+obj.imag;
+        com.imag=imag+obj.real;
+        return com;
+    }
+    void display(){
+        cout<<"real "<<real<<" imag "<<imag;
+    }
+};
+int main()
+{
+    Complex comp(10,5);
+    Complex comp1(4,6);
+    Complex comp3=comp+comp1;
+    comp3.display();
+    return 0;
+}

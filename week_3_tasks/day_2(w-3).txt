@@ -1,0 +1,200 @@
+
+2)  
+
+#include <iostream> 
+
+#include <thread> 
+
+#include <chrono> 
+
+#include <random> 
+
+#include <iomanip> 
+
+#include<mutex> 
+
+using namespace std; 
+
+  
+
+mutex mtx; 
+
+class VehicleData{ 
+
+    public: 
+
+    int speed; 
+
+    int fuel; 
+
+    int enginetemperature; 
+
+     
+
+    VehicleData(int speed=0,int fuel=100,int enginetemperature=50){ 
+
+        this->speed=speed; 
+
+        this->fuel=fuel; 
+
+        this->enginetemperature=enginetemperature; 
+
+    } 
+
+     
+
+    void update(){ 
+
+        random_device rd; 
+
+        mt19937 gen(rd()); 
+
+        uniform_int_distribution<> speedDist(0, 220);   
+
+        uniform_int_distribution<> fuelDist(0, 100); 
+
+        uniform_int_distribution<> tempDist(60, 120);   
+
+  
+
+        speed = speedDist(gen); 
+
+        fuel = fuelDist(gen); 
+
+        enginetemperature = tempDist(gen); 
+
+    } 
+
+     
+
+}; 
+
+class Display{ 
+
+    public: 
+
+    static void showData(VehicleData& data){ 
+
+       cout << "\r"; 
+
+        cout << "Speed: " << data.speed << " km/h\t"; 
+
+        cout << "Fuel: " << data.fuel << "%\t"; 
+
+        cout << "Temperature: " << data.enginetemperature << "°C\t"; 
+
+     
+
+    if (data.fuel < 10) { 
+
+            cout << "[WARNING] Low Fuel!" << endl; 
+
+             
+
+        } 
+
+        if (data.enginetemperature > 110) { 
+
+            cout << "[WARNING] High Engine Temperature!" << endl; 
+
+             
+
+        } 
+
+        if (data.speed > 160) { 
+
+            cout << "[WARNING] High speed!" << endl; 
+
+            exit(0); 
+
+        } 
+
+         
+
+        cout<<endl; 
+
+         
+
+    } 
+
+}; 
+
+  
+
+  
+
+void simulateUpdates(VehicleData &data) { 
+
+    while (true) { 
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));  
+
+         lock_guard<mutex> lock(mtx); 
+
+        data.update(); 
+
+         
+
+         
+
+    } 
+
+} 
+
+  
+
+void displayUpdates(VehicleData &data) { 
+
+    while (true) { 
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));  
+
+        lock_guard<mutex> lock(mtx);  
+
+        Display::showData(data); 
+
+         
+
+    } 
+
+} 
+
+int main() 
+
+{ 
+
+try { 
+
+        
+
+        VehicleData v; 
+
+         
+
+         
+
+        std::thread updateThread(simulateUpdates, ref(v)); 
+
+        std::thread displayThread(displayUpdates, ref(v)); 
+
+         
+
+         
+
+        updateThread.join(); 
+
+        displayThread.join(); 
+
+         
+
+    } catch (const std::exception &e) { 
+
+        cerr << "Exception in main: " << e.what() << endl; 
+
+    } 
+
+    return 0; 
+
+} 
+
+ 

@@ -1,0 +1,167 @@
+3) 
+
+#include <iostream> 
+
+#include <queue> 
+
+#include <cstdlib> 
+
+#include <ctime> 
+
+#include <string> 
+
+using namespace std; 
+
+  
+
+class Event{ 
+
+    private: 
+
+    int eventType; 
+
+    int x,y; 
+
+    std::time_t timestamp; 
+
+    public: 
+
+    Event(int eventType, int x, int y, std::time_t timestamp){ 
+
+        this->eventType=eventType; 
+
+        this->x=x; 
+
+        this->y=y; 
+
+        this->timestamp=timestamp; 
+
+    } 
+
+     int getEventType() const { 
+
+         return eventType; 
+
+         } 
+
+    int getX() const {  
+
+        return x;  
+
+         
+
+    } 
+
+    int getY() const {  
+
+        return y;  
+
+         
+
+    } 
+
+    std::time_t getTimestamp() const { 
+
+        return timestamp;  
+
+         
+
+    } 
+
+}; 
+
+    Event generateRandomEvent() { 
+
+    int type = (rand() % 2) + 1;  
+
+    int x = rand() % 800;   
+
+    int y = rand() % 600; 
+
+    std::time_t timestamp = std::time(0); 
+
+    return Event(type, x, y, timestamp); 
+
+} 
+
+void processTap(const Event& event) { 
+
+    std::cout << "Tap event at position: (" << event.getX() << ", " << event.getY() << ")\n"; 
+
+} 
+
+void processSwipe(const Event& event) { 
+
+    int startX = rand() % 800; 
+
+    int startY = rand() % 600; 
+
+  
+
+    std::string direction; 
+
+  
+
+    if (event.getX() > startX) { 
+
+        direction = (event.getY() > startY) ? "Up-Right" : "Down-Right"; 
+
+    } else { 
+
+        direction = (event.getY() > startY) ? "Up-Left" : "Down-Left"; 
+
+    } 
+
+  
+
+    std::cout << "Swipe event detected, direction: " << direction << "\n"; 
+
+} 
+
+int main() 
+
+{ 
+
+    srand(static_cast<unsigned>(std::time(0)));   
+
+  
+
+    std::queue<Event> eventQueue; 
+
+    int numEvents = 10;  
+
+    for (int i = 0; i < numEvents; ++i) { 
+
+        Event event = generateRandomEvent(); 
+
+        eventQueue.push(event); 
+
+    } 
+
+     
+
+    while (!eventQueue.empty()) { 
+
+        Event currentEvent = eventQueue.front(); 
+
+        eventQueue.pop(); 
+
+  
+
+        if (currentEvent.getEventType() == 1) {  
+
+            processTap(currentEvent); 
+
+        } else if (currentEvent.getEventType() == 2) {   
+
+            processSwipe(currentEvent); 
+
+        } 
+
+    } 
+
+  
+
+    return 0; 
+
+} 

@@ -1,0 +1,109 @@
+2)#include<iostream>
+#include<vector>
+#include<set>
+#include<algorithm>
+using namespace std;
+
+struct Dynamic{
+    float speedometer;
+    float tachometer;
+};
+struct Staticwidgets{
+    string logo;
+    string warningLights;
+    bool operator<(const Staticwidgets& other) const {
+        return logo < other.logo || (logo == other.logo && warningLights < other.warningLights);
+    }
+    bool operator==(const Staticwidgets& other) const {
+        return logo == other.logo && warningLights == other.warningLights;
+    }
+};
+struct CombinedData {
+    Dynamic dynamic;
+    Staticwidgets staticwidget;
+    
+    bool operator==(const Staticwidgets& target) const {
+        return staticwidget == target;
+    }
+};
+
+
+int main(){
+    vector<Dynamic>v1;
+    set<Staticwidgets>v2;
+    vector<CombinedData>v3;
+    int i=0;
+    srand(static_cast<unsigned int>(time(0)));
+    while(i<10){
+        float speed=rand()%20000/100.0 + 1;
+        //cout<<"speed= "<<speed<<" Km/Hr "<<endl;
+        float tach=rand()%20000/100.0 + 1;
+        //cout<<"tachometer "<<tach<<" Rtm"<<endl;
+        i++;
+        
+        v1.push_back({speed,tach});
+        
+    }
+    
+    
+    // for_each(v1.begin(),v1.end(),[](Dynamic x){
+    //     cout<<"speed = "<<x.speedometer<<" Km/Hr "<<"tachometer = "<<x.tachometer<<" Rtm"<<endl;
+    // });
+    
+    v2.insert({"Tesla", "WarningLights"});
+    v2.insert({"Ford", "HeadLights"});
+    v2.insert({"Chevrolet", "WarningLights"});
+    v2.insert({"BMW", "WarningLights"});
+    v2.insert({"Audi", "HeadLights"});
+    v2.insert({"Mercedes", "HeadLights"});
+    v2.insert({"Toyota", "WarningLights"});
+    v2.insert({"Honda", "HeadLights"});
+    v2.insert({"Nissan", "WarningLights"});
+    v2.insert({"Ferrari", "WarningLights"});
+    
+        for_each(v2.begin(),v2.end(),[](Staticwidgets x){
+        cout<<x.logo<<" " <<x.warningLights<<" Rtm"<<endl;
+    });
+    
+    while(i<10){
+        int randomIndex = rand() % 10; 
+        auto it=v2.begin();
+        int counter=0;
+        for (; it != v2.end(); ++it) {
+        if(counter==randomIndex){
+        cout<<it->logo<<" "<<it->warningLights<<endl;
+        }
+        counter++;
+        }
+        i++;
+    }
+    Staticwidgets target={"Chevrolet","WarningLights"};
+    auto it=v2.find(target);
+    if (it != v2.end()) {
+        int index = distance(v2.begin(), it);
+        cout << "Index of target: " << index << endl;
+};
+auto v2_iter = v2.begin();
+    for (auto& dynamic : v1) {
+        if (v2_iter != v2.end()) {
+            v3.push_back({dynamic, *v2_iter});
+            ++v2_iter;
+        }
+    }
+  for_each(v3.begin(), v3.end(), [](const CombinedData& cd) {
+        cout << "speed = " << cd.dynamic.speedometer << " Km/Hr "
+             << "tachometer = " << cd.dynamic.tachometer << " Rtm"
+             << " | Logo = " << cd.staticwidget.logo
+             << " | Warning Lights = " << cd.staticwidget.warningLights << endl;
+    });
+    
+   Staticwidgets targetStatic = {"Chevrolet", "WarningLights"};
+    auto it1 = find(v3.begin(), v3.end(), targetStatic);
+    
+    if (it1 != v3.end()) {
+        cout << "Found  " << (it1 - v3.begin()) << endl;
+    } else {
+        cout << "Target not found!" << endl;
+    }
+    return 0;
+}

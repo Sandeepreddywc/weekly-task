@@ -1,0 +1,59 @@
+1. Demonstrate classes & objects, encapsulation, and abstraction.
+Description: Create a simple bank account management system where users can create accounts, deposit money, withdraw money, and check the account balance.
+Requirements:
+Define a class BankAccount with private member variables for the account holder's name, account number, and balance.
+Use public member functions to:
+Set and get the account holder's details.
+Deposit money.
+Withdraw money (with a check to prevent overdrawing).
+Display account information (balance and holder’s name).
+Use encapsulation to protect account details and allow access only through the defined functions.
+
+
+#include <iostream>
+using namespace std;
+class BankAccount{
+    private:
+    string accountname;
+    int accountnumber;
+    int balance;
+    
+    public:
+    void createaccount(int accountnumber,string accountname,int balance){
+        this->accountname=accountname;
+        this->accountnumber=accountnumber;
+        this->balance=balance;
+    }
+    
+    void getaccount(){
+        cout<<"accountname "<<accountname<<endl;
+        cout<<"accountnumber "<<accountnumber<<endl;
+        cout<<"balance "<<balance<<endl;
+    }
+    
+    void despoit(int value){
+        balance=balance+value;
+        cout<<"balance "<<balance<<endl;
+    }
+    
+    void withdraw(int value){
+        if(balance<value){
+            cout<<"balance not efficent"<<endl;
+        }
+        else{
+            balance=balance-value;
+            cout<<"balance "<<balance<<endl;
+        }
+    }
+    
+};
+int main()
+{
+    BankAccount bank;
+    bank.createaccount(9564738,"Sandy",600);
+    bank.getaccount();
+    
+    bank.despoit(300);
+    bank.withdraw(200);
+    return 0;
+}

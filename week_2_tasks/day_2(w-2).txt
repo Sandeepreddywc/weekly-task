@@ -1,0 +1,60 @@
+#include<iostream>
+#include<vector>
+#include<array>
+#include<algorithm>
+#include <iomanip>
+using namespace std;
+ 
+struct Carsensordata 
+{
+    int speed;
+    double fuelLevel;
+    double enginetemp;
+    array <double,4> tirepressure;
+};
+ 
+double checktirepressure (double tirepressure)
+{
+    if (tirepressure > 30)
+    {
+        return tirepressure;
+    }
+    else
+    {
+        return 30;
+    }
+}
+ 
+void updatescarsensordata (Carsensordata& carsd)
+{
+    carsd.speed += 10;
+    carsd.fuelLevel -= 5;
+    carsd.enginetemp += 2;
+    transform (carsd.tirepressure.begin(), carsd.tirepressure.end(),carsd.tirepressure.begin(),checktirepressure);
+}
+ 
+void displaysensordata(Carsensordata& carsd)
+{
+    cout << fixed << setprecision(1);
+    cout << "speed: " << carsd.speed << "kmph" << endl;
+    cout << "fuelLevel:  " << carsd.fuelLevel << "%" << endl;
+    cout << "enginetemp:  " << carsd.enginetemp << "C" << endl;
+    cout << "Tire pressures:  ";
+    for (size_t i=0;i<carsd.tirepressure.size() ; ++i)
+    {
+        cout << carsd.tirepressure[i] <<" "<< "PSI  ";
+    }
+    cout << endl;
+}
+int main ()
+{
+    Carsensordata cc = {95, 80.7, 90.0, {28.4, 35.6, 32.6, 22.4}};
+ 
+    cout << "Initial values: " << endl;
+    displaysensordata(cc);
+    updatescarsensordata(cc);
+    cout << endl;
+    cout << "after updation:  " << endl;
+    displaysensordata(cc);
+    return 0;
+}

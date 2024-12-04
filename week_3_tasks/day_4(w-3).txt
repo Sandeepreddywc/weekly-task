@@ -1,0 +1,129 @@
+4) 
+
+#include<iostream> 
+
+#include<map> 
+
+using namespace std; 
+
+  
+
+class theme{ 
+
+    public: 
+
+     
+
+    string bgcolor; 
+
+    string fontcolor; 
+
+    string fontsize; 
+
+    string iconStyle; 
+
+     
+
+     theme(string bgcolor = "white", string fontcolor = "black", string fontsize = "12", string iconStyle = "Styleicon") { 
+
+        this->bgcolor = bgcolor; 
+
+        this->fontcolor = fontcolor; 
+
+        this->fontsize = fontsize; 
+
+        this->iconStyle = iconStyle; 
+
+    } 
+
+  
+
+    void display() { 
+
+        cout << "Background color: " << bgcolor << endl 
+
+             << "Font color: " << fontcolor << endl 
+
+             << "Font size: " << fontsize << endl 
+
+             << "Icon style: " << iconStyle << endl; 
+
+    } 
+
+}; 
+
+     
+
+int main() 
+
+{ 
+
+    map<string,theme>themes; 
+
+    themes["Classic"] = theme(" Light Gray", "Charcoal Gray", "18px", "Elegant"); 
+
+    themes["Sport"] = theme("Navy Blue", "White", "16px", " Bold"); 
+
+    themes["Eco"] = theme("Light Green", " Dark Green", " 14px", "Minimalist"); 
+
+     
+
+    theme th; 
+
+    th.display(); 
+
+    string choice; 
+
+    while(true){ 
+
+        cout<<"menu at the\n 1)Classic\n 2)Sport\n 3)Eco\n 4)exit"<<endl; 
+
+        cout<<"enter the choice"<<endl; 
+
+        cin>>choice; 
+
+         
+
+            if(choice=="Classic" || choice=="1"){ 
+
+               themes["Classic"].display(); 
+
+               cout<<"changed completed successfully to the Classic"<<endl; 
+
+               exit(0); 
+
+    } 
+
+    else if(choice=="Sport" || choice=="2"){ 
+
+        themes["Sport"].display(); 
+
+        cout<<"changed completed successfully to the Sport"<<endl; 
+
+        exit(0); 
+
+    } 
+
+    else if(choice=="Eco" || choice=="3"){ 
+
+        themes["Eco"].display(); 
+
+        cout<<"changed completed successfully to the Eco"<<endl; 
+
+        exit(0); 
+
+    } 
+
+    else{ 
+
+        cout<<"you exit from the the prgram please come back to use the program"<<endl; 
+
+        exit(0); 
+
+    } 
+
+        } 
+
+    return 0; 
+
+} 

@@ -1,0 +1,24 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+
+void processSensorData(vector<float>& data){
+    for(auto& reading:data){
+        if(reading>10){
+            reading=-1.0;
+        }
+    }
+}
+int main()
+{
+    vector<float> data0={3.5, 11.2, 5.6, 12.0, 2.3};
+    processSensorData(data0);
+    for(auto& value:data0){
+        cout<<value<<",";
+    }
+    cout<<endl;
+    return 0;
+}
+
+
+o/p:-3.5,-1,5.6,-1,2.3

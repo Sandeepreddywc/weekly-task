@@ -1,0 +1,54 @@
+#include <iostream>
+#include <memory>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+ template <class T>
+class Container {
+private:
+    vector<T> a;  
+
+public:
+    void add(int n) {
+        a.resize(n);  
+        
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];  
+        }
+        a.push_back(23);
+    }
+    void get(){
+       for_each(a.begin(), a.end(), [](const T& element) {
+            cout << element << " ";
+        });
+    }
+     constexpr int size() const {
+        return a.size();
+    }
+
+    
+};
+
+    
+    int main(){
+        int n;
+        cin>>n;
+        
+         unique_ptr<Container<int>> cq = make_unique<Container<int>>();
+         cq->add(n);
+        cq->get();
+        cout<<cq->size()<<" ";
+        
+        unique_ptr<Container<int>> cq1;
+         cq1=move(cq);
+         cout<<endl;
+         
+         
+          shared_ptr<Container<int>> cs = make_shared<Container<int>>();
+         shared_ptr<Container<int>> cs1;
+         cs1=cs;
+         cout<<endl;
+         cout<<"count "<<cs.use_count();
+        return 0;
+    }
